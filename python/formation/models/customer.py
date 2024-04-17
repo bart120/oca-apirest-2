@@ -11,6 +11,7 @@ class Customer(Base):
     firstname = Column(String(50))
     imsi = Column(String(15))
     birthdate= Column(DateTime)
+    #devices = relationship("Device")
 
 class CustomerSerial(BaseModel):
     id:int=0
