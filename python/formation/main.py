@@ -33,3 +33,25 @@ def insert_customer(cs:CustomerSerial):
     db.commit()
     cs.id = c.id
     return cs
+
+@app.put("/customers/{id}", status_code=204)
+def update_customer(id:int, cs:CustomerSerial):
+    c = db.query(Customer).filter(Customer.id == id).one_or_none()
+    if c is None:
+        return Response(status_code=404, content="Customer not found")
+    else:
+        c.birthdate = cs.birthdate
+        c.firstname = cs.firstname
+        c.name = cs.name
+        c.imsi = cs.imsi
+        db.commit()
+        return Response(status_code=204, content=None)
+    
+@app.delete("/customers/{id}", status_code=204)
+def delete_customer_by_id(id:int):
+    c = db.query(Customer).filter(Customer.id == id).one_or_none()
+    if c is None:
+        return Response(status_code=404, content="Customer not found")
+    db.delete(c)
+    db.commit()
+    return
