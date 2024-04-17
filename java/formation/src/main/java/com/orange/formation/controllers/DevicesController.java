@@ -25,7 +25,6 @@ public class DevicesController {
     public ResponseEntity<List<Device>> getDevices(@RequestParam int customerid) {
         List<Device> liste = devRepo.findAllByCustomerId(customerid);
         return new ResponseEntity<>(liste, HttpStatus.OK);
-
     }
 
     @PostMapping("/devices")

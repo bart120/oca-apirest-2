@@ -7,7 +7,7 @@ router = APIRouter()
 db=SessionLocal()
 
 @router.get("/devices")
-def get_devices(customerid:int):
+def get_devices(customerid:int=None):
     if customerid is not None:
         devices = db.query(Device).filter(Device.customer_id == customerid).all()
         return devices
@@ -17,7 +17,7 @@ def get_devices(customerid:int):
     
 @router.post("/devices", status_code=201)
 def insert_device(ds:DeviceSerial):
-    d=Device(label=ds.label, imei=ds.imei)
+    d=Device(label=ds.label, imei=ds.imei, customer_id=ds.customer_id)
     db.add(d)
     db.commit()
     ds.id = d.id

@@ -3,10 +3,17 @@ from database import SessionLocal, Base, engine
 from models.customer import Customer, CustomerSerial
 from models.device import Device, DeviceSerial
 
+tags_metadata = [
+    {
+        "name":"customers",
+        "description":"La liste des clients Orange"
+    }
+]
+
 router = APIRouter()
 db=SessionLocal()
 
-@router.get("/customers")
+@router.get("/customers", tags=["customers"])
 def get_customers():
     customers = db.query(Customer).all()
     return customers

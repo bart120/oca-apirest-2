@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.orange.formation.models.Customer;
 import com.orange.formation.models.CustomersRepository;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -21,12 +24,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 
+@Tag(name = "Clients", description = "API  sur les clients")
 @RestController
 public class CustomersController {
 
     @Autowired
     CustomersRepository custoRepo;
 
+    @Operation(summary = "Liste des clients", description = "La liste des clients Orange")
     @GetMapping("/customers")
     public List<Customer> getCustomers() {
         List<Customer> customers = custoRepo.findAll();
